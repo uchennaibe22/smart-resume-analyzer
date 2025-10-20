@@ -1,0 +1,105 @@
+li<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Resume Analyzer</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        max-width: 700px;
+        margin: 40px auto;
+        padding: 20px;
+        line-height: 1.6;
+        background-color: #f9f9f9;
+      }
+
+      h1 {
+        color: #333;
+        text-align: center;
+      }
+
+      textarea {
+        width: 100%;
+        padding: 10px;
+        font-size: 14px;
+      }
+
+      button {
+        display: block;
+        margin: 10px auto;
+        padding: 10px 20px;
+        background-color: #007bff;
+        color: white;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+      }
+
+      button:hover {
+        background-color: #0056b3;
+      }
+
+      h2 {
+        margin-top: 30px;
+        color: #444;
+      }
+
+      ul {
+        background: white;
+        padding: 15px;
+        border-radius: 5px;
+        list-style-type: disc;
+      }
+
+      li {
+        margin-bottom: 5px;
+      }
+    </style>
+</head>
+<body>
+  <h1>Resume Skill Analyzer</h1>
+  <form method="POST" enctype="multipart/form-data">
+      <textarea name="resume_text" rows="8" cols="50" placeholder="Paste your resume here"></textarea><br>
+      <textarea name="job_text" rows="8" cols="50" placeholder="Paste the job description here"></textarea><br>
+      <p>Or upload your resume (PDF):</p>
+<input type="file" name="resume_file" accept=".pdf"><br>
+
+      <button type="submit">Analyze</button>
+  </form>
+  
+  {% if found_skills or common_skills or missing_skills %}
+    {% if match_score is defined %}
+      <h2 style="text-align:center;">
+        Match Score: <span style="color:green;">{{ match_score|round(1) }}%</span>
+      </h2>
+    {% endif %}
+  
+    <h2>Analysis Result</h2>
+  
+    <h3>✅ Common Skills</h3>
+    <ul>
+      {% for skill in common_skills %}
+        <li style="color: green;">{{ skill }}</li>
+      {% endfor %}
+    </ul>
+  
+    <h3>💼 Skills Found in Resume</h3>
+    <ul>
+      {% for skill in found_skills %}
+        <li>{{ skill }}</li>
+      {% endfor %}
+    </ul>
+  
+    <h3>❌ Missing Job Skills</h3>
+    <ul>
+      {% for skill in missing_skills %}
+        <li style="color: red;">{{ skill }}</li>
+      {% endfor %}
+    </ul>
+  {% endif %}
+  
+
+
+
+
+  
